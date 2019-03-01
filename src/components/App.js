@@ -19,7 +19,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sunsets&per_page=24&format=json&nojsoncallback=1`)
+    this.performSearch();
+  }
+
+  performSearch = (query = 'sunsets') => {
+    fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(res => res.json())
     .then(resData => {
       this.setState({imgs: resData.photos.photo});
@@ -34,7 +38,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="main-container">
-          <Header />
+          <Header search={this.performSearch} />
           <Gallery data={this.state.imgs}/>
         </div>
       </BrowserRouter>
