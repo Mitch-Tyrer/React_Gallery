@@ -7,17 +7,15 @@ export default class SearchForm extends Component {
         searchText: ''
     }
 
-    render(){
+    render() {
         return (
             <form className="search-form">
-                <label>
-                    <input 
-                        type="text"
-                        name="search"
-                        placeholder="Search..."
-                    />
-                    <button type="submit" id="submit">Search</button>
-                </label>
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search..."
+                />
+                <button className="search-button" type="submit" id="submit">Search</button>
             </form>
         )
     }
