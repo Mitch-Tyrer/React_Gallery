@@ -3,7 +3,6 @@ import Nav from './Nav';
 import SearchForm from './SearchForm';
 
 const Header = (props) => {
-    console.log(props.search)
 
     return (
         <header>

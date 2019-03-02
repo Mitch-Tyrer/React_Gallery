@@ -10,6 +10,7 @@ import {
 //APP COMPONENTS
 import Header from './Header';
 import Gallery from './Gallery';
+import NotFound from './NotFound';
 
 
 class App extends Component {
@@ -33,13 +34,25 @@ class App extends Component {
     })
   }
 
+  createPopularLink = (query) => {
+    this.performSearch(query);
+    const gallery = <Gallery data={this.state.imgs} />
+    return gallery;
+  }
+
   render() {
     console.log(this.state.imgs);
     return (
       <BrowserRouter>
         <div className="main-container">
           <Header search={this.performSearch} />
-          <Gallery data={this.state.imgs}/>
+          <Switch>
+              <Route exact path="/" render={() => <Gallery data={this.state.imgs} />} />
+              <Route path="/cats" render={() => this.createPopularLink('cats')} />
+              <Route path="/dogs" render={() => this.createPopularLink('dogs')} />
+              <Route path="/sunsets" render={() => this.createPopularLink('sunsets')} />
+              <Route component={NotFound} />
+          </Switch>
         </div>
       </BrowserRouter>
       
