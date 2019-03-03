@@ -7,7 +7,6 @@ const Header = (props) => {
     return (
         <header>
             <h1>My React Gallery</h1>
-            <SearchForm onSearch={props.search}/>
             <h4>Popular Searches</h4>
             <Nav />
         </header>

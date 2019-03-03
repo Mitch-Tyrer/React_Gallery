@@ -7,9 +7,9 @@ export default class SearchForm extends Component {
         searchText: ''
     }
 
-    handleChange = (e) => {
+    handleChange = e => {
         this.setState({ searchText: e.target.value });
-    }
+      }
 
     handleSubmit = e => {
         e.preventDefault();

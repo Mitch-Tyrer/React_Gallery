@@ -3,7 +3,6 @@ import Image from './Image';
 import NoResults from './NoResults';
 
 const Gallery = (props) => {
-
     const photos = props.data;
      let imgs;
 

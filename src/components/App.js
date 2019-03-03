@@ -4,19 +4,21 @@ import apiKey from './config'
 import {
   BrowserRouter,
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 
 //APP COMPONENTS
+import Gallery from './Gallery'
+import SearchForm from './SearchForm';
 import Header from './Header';
-import Gallery from './Gallery';
-import NotFound from './NotFound';
 
 
 class App extends Component {
 
   state = {
-    imgs: []
+    imgs: [],
+    search: ''
   }
 
   componentDidMount() {
@@ -27,31 +29,30 @@ class App extends Component {
     fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(res => res.json())
     .then(resData => {
-      this.setState({imgs: resData.photos.photo});
+      this.setState({imgs: resData.photos.photo, search: query});
     })
     .catch(err => {
       console.log('Error fetching and parsing data', err);
     })
   }
 
-  createPopularLink = (query) => {
+  createGallery = (query) => {
     this.performSearch(query);
-    const gallery = <Gallery data={this.state.imgs} />
-    return gallery;
+    return <Gallery data={this.state.imgs} />
   }
 
   render() {
-    console.log(this.state.imgs);
+   
     return (
       <BrowserRouter>
         <div className="main-container">
-          <Header search={this.performSearch} />
+        <Header />
+          <SearchForm onSearch={this.performSearch}/>
           <Switch>
-              <Route exact path="/" render={() => <Gallery data={this.state.imgs} />} />
-              <Route path="/cats" render={() => this.createPopularLink('cats')} />
-              <Route path="/dogs" render={() => this.createPopularLink('dogs')} />
-              <Route path="/sunsets" render={() => this.createPopularLink('sunsets')} />
-              <Route component={NotFound} />
+              <Route exact path="/" render={ () => <Redirect to="/sunsets" />} />
+              <Route path="/sunsets" render={() => this.createGallery('sunsets')} />
+              <Route path="/cats" render={ () => this.createGallery('cats') } />
+              <Route path="/dogs" render={ () => this.createGallery('dogs') } />
           </Switch>
         </div>
       </BrowserRouter>
