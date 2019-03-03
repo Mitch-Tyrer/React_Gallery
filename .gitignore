@@ -4,7 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-config.js
 
 # testing
 /coverage
@@ -19,6 +18,9 @@ config.js
 .env.test.local
 .env.production.local
 
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+./src/components/config.js
