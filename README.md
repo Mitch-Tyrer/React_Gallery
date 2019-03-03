@@ -3,6 +3,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Needed From You
 
+This project uses a flickr API.  To use this app you need to add a config.js into the src/componenets directory. YOu can apply for a non commercial API key here: https://www.flickr.com/services/apps/create/apply/
+
+The config.js should be formatted as follows:
+
 ```
 const apiKey = 'YOUR API KEY';
 export default apiKey;
