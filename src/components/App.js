@@ -12,6 +12,7 @@ import {
 import Gallery from './Gallery'
 import SearchForm from './SearchForm';
 import Header from './Header';
+import NotFound from './NotFound';
 
 
 class App extends Component {
@@ -24,27 +25,28 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.performSearch('sunsets');
-    this.performSearch('cats');
-    this.performSearch('dogs');
+    this.performSearch('sunsets','sunsets');
+    this.performSearch('cats', 'cats');
+    this.performSearch('dogs', 'dogs');
   }
 
-  performSearch = (query = 'sunsets') => {
+  performSearch = (query, input) => {
     fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(res => res.json())
     .then(resData => {
-      this.setState({[query]: resData.photos.photo});
+      this.setState({[input]: resData.photos.photo});
     })
     .catch(err => {
       console.log('Error fetching and parsing data', err);
     })
   }
 
+
   render() {
    
     return (
       <BrowserRouter>
-        <div className="main-container">
+        <div className="container">
         <Header />
           <SearchForm onSearch={this.performSearch}/>
           <Switch>
@@ -52,6 +54,8 @@ class App extends Component {
               <Route path="/sunsets" render={() => <Gallery data={this.state.sunsets} /> } />
               <Route path="/cats" render={ () => <Gallery data={this.state.cats} /> } />
               <Route path="/dogs" render={ () => <Gallery data={this.state.dogs} /> } />
+              <Route path="/search" render={ () => <Gallery data={this.state.results} /> } />
+              <Route component={NotFound} />
           </Switch>
         </div>
       </BrowserRouter>
